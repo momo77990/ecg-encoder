@@ -1,0 +1,42 @@
+# Phase 3 配置：在 Phase 2 best projector 基础上，加 LoRA 微调 Qwen attention
+
+base_projector_ckpt: runs/ecg_lm/best_projector.pt
+encoder_ckpt: runs/ecg_tiny/best.pt
+
+llm:
+  name: Qwen/Qwen2.5-1.5B-Instruct
+  dtype: bfloat16
+
+projector:
+  hidden_dim: 1536
+  init_from: runs/ecg_lm/best_projector.pt
+
+lora:
+  r: 16
+  alpha: 32
+  dropout: 0.05
+  target_modules:
+    - q_proj
+    - k_proj
+    - v_proj
+    - o_proj
+
+system_msg: "You are a cardiologist analyzing single-heartbeat ECG signals."
+user_prompt: "Describe this heartbeat."
+
+data:
+  data_dir: /data/cjy/encoder/data
+  batch_size: 16
+  num_workers: 4
+  eval_max_samples: 2000
+
+train:
+  epochs: 3                         # 从 best_projector 起步，LoRA 只需少量 epoch
+  projector_lr: 1.0e-4               # projector 已训好，微调小 LR
+  lora_lr: 2.0e-4                    # LoRA 正常 LR
+  weight_decay: 0.0
+  warmup_ratio: 0.05
+  log_dir: runs/ecg_lm_lora
+  ckpt_dir: runs/ecg_lm_lora
+
+seed: 42

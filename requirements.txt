@@ -1,0 +1,12 @@
+torch>=2.0
+numpy
+pandas
+scikit-learn
+pyyaml
+tensorboard
+tqdm
+pytest
+transformers>=4.40
+accelerate
+peft>=0.10
+httpx[socks]

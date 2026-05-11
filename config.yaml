@@ -1,0 +1,28 @@
+model:
+  in_channels: 1
+  conv_dim: 128
+  num_conv_blocks: 3
+  kernel_size: 3
+  d_model: 256
+  num_layers: 4
+  nhead: 4
+  ffn_dim: 1024
+  dropout: 0.1
+  num_classes: 5
+
+data:
+  data_dir: /data/cjy/encoder/data        # 期待里面有 mitbih_train.csv / mitbih_test.csv
+  batch_size: 256
+  num_workers: 4
+  use_class_weights: true
+
+train:
+  epochs: 30
+  lr: 3.0e-4
+  weight_decay: 0.01
+  warmup_ratio: 0.05
+  amp: true
+  log_dir: runs/ecg_tiny
+  ckpt_dir: runs/ecg_tiny
+
+seed: 42

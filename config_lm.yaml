@@ -1,0 +1,29 @@
+# Phase 2 配置：训练 ECG → LLM projector
+
+encoder_ckpt: runs/ecg_tiny/best.pt
+
+llm:
+  name: Qwen/Qwen2.5-1.5B-Instruct  # 已下载本地缓存；base 版换成 Qwen/Qwen2.5-1.5B
+  dtype: bfloat16
+
+projector:
+  hidden_dim: 1536                  # = LLM hidden_size，常用做法
+
+system_msg: "You are a cardiologist analyzing single-heartbeat ECG signals."
+user_prompt: "Describe this heartbeat."
+
+data:
+  data_dir: /data/cjy/encoder/data
+  batch_size: 16
+  num_workers: 4
+  eval_max_samples: 2000            # epoch 结束评测的样本数（提速）
+
+train:
+  epochs: 5
+  lr: 1.0e-3
+  weight_decay: 0.0
+  warmup_ratio: 0.05
+  log_dir: runs/ecg_lm
+  ckpt_dir: runs/ecg_lm
+
+seed: 42
