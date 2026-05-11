@@ -14,6 +14,22 @@ Reported results from the project notes:
 - Phase 1 ECG classifier macro F1: **0.8625**
 - Phase 2 LLM generation + parsed classification macro F1: **0.9057**
 
+## Model architecture
+
+![ECG Encoder model architecture](assests/model.png)
+
+The model is organized as a two-stage pipeline. In Phase 1, the MIT-BIH ECG signal is first encoded by a CNN + Transformer ECG encoder. The encoder converts each heartbeat record into sequence features, and a mean-pooling classification head predicts one of five heartbeat classes: N, S, V, F, or Q.
+
+After Phase 1 training, the classification head is discarded. The trained ECG encoder is frozen and reused in Phase 2. Its ECG sequence features are passed through a trainable MLP projector, which maps ECG embeddings into the same hidden dimension as the language model token embeddings.
+
+In Phase 2, the projected ECG features are treated as **ECG soft tokens** and inserted into a ChatML-style prompt. During training, the input is constructed as:
+
+```text
+Prefix prompt + ECG soft tokens + Suffix prompt + Target diagnosis text
+```
+
+The loss is calculated only on the target diagnosis text tokens. This means the model learns to generate the diagnosis from the prompt and ECG information, instead of learning to reproduce the prompt itself. The Qwen2.5-1.5B-Instruct language model remains frozen, and only the ECG-to-LLM projector is trained.
+
 ## Dataset
 
 The project uses the MIT-BIH subset from the Kaggle heartbeat dataset:
@@ -76,20 +92,6 @@ python -m src.train_lm --config config_lm.yaml
 ```bash
 python -m src.evaluate_lm --config config_lm.yaml
 ```
-
-## Model architecture
-
-The Phase 1 classifier uses:
-
-- 1D CNN feature extractor with 3 stride-2 convolution blocks
-- Transformer backbone with 4 layers, hidden size 256, and 4 attention heads
-- Mean pooling over patch tokens followed by a linear 5-class head
-
-The Phase 2 model uses:
-
-- Frozen ECG encoder
-- MLP projector from ECG token embeddings to LLM embedding space
-- Frozen Qwen2.5-1.5B-Instruct language model
 
 ## Notes
 
