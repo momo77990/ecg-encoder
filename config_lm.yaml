@@ -3,7 +3,7 @@
 encoder_ckpt: runs/ecg_tiny/best.pt
 
 llm:
-  name: Qwen/Qwen2.5-1.5B-Instruct  # 已下载本地缓存；base 版换成 Qwen/Qwen2.5-1.5B
+  name: Qwen/Qwen2.5-1.5B-Instruct  
   dtype: bfloat16
 
 projector:
