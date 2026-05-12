@@ -1,8 +1,1 @@
-/data/
-/runs/
-/archive.zip
-cc.sh
-gpt.sh
-__pycache__/
-*.py[cod]
-.pytest_cache/
+
