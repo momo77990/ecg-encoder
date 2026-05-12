@@ -7,7 +7,7 @@ llm:
   dtype: bfloat16
 
 projector:
-  hidden_dim: 1536                  # = LLM hidden_size，常用做法
+  hidden_dim: 1536                  # = LLM hidden_size，
 
 system_msg: "You are a cardiologist analyzing single-heartbeat ECG signals."
 user_prompt: "Describe this heartbeat."
@@ -16,7 +16,7 @@ data:
   data_dir: /data/cjy/encoder/data
   batch_size: 16
   num_workers: 4
-  eval_max_samples: 2000            # epoch 结束评测的样本数（提速）
+  eval_max_samples: 2000            # epoch 结束评测的样本数
 
 train:
   epochs: 5
