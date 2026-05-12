@@ -91,6 +91,18 @@ The Phase 2 model uses:
 - MLP projector from ECG token embeddings to LLM embedding space
 - Frozen Qwen2.5-1.5B-Instruct language model
 
+### Soft tokens and ChatML prompt
+
+**ECG soft tokens** are continuous embedding vectors generated from ECG features, not readable text tokens. The MLP projector maps the ECG encoder output into the same embedding dimension used by the LLM, so these ECG embeddings can be inserted directly into the LLM input sequence. This allows the language model to condition on ECG information without first converting the signal into plain text.
+
+**ChatML** is the chat prompt format used to wrap the instruction for the Qwen Instruct model. In this project, the LLM input is built by combining normal text prompt embeddings with the ECG soft tokens:
+
+```text
+Prefix prompt + ECG soft tokens + Suffix prompt + Target diagnosis text
+```
+
+During training, the target diagnosis text is appended after the prompt. The loss is calculated only on the target diagnosis tokens, so the model learns to generate the diagnosis from the ECG information rather than learning to reproduce the prompt itself.
+
 ## Notes
 
 Generated files, local data, training outputs, and helper shell scripts are excluded from Git by `.gitignore`.
