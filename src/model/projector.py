@@ -1,4 +1,4 @@
-"""LLaVA 风格 2-layer MLP projector。
+"""2-layer MLP projector。
 
 把 ECG encoder 的 d_model 输出投影到 LLM 的 hidden_dim 空间，
 让 LLM 把 ECG 特征当作 soft token 处理。
