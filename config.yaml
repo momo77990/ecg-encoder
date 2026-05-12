@@ -11,7 +11,7 @@ model:
   num_classes: 5
 
 data:
-  data_dir: /data/cjy/encoder/data        # 期待里面有 mitbih_train.csv / mitbih_test.csv
+  data_dir: /data/cjy/encoder/data      
   batch_size: 256
   num_workers: 4
   use_class_weights: true
