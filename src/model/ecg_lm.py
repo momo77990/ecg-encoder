@@ -1,4 +1,4 @@
-"""ECG → LLM 桥接模块（LLaVA 风格）。
+"""ECG → LLM 桥接模块。
 
 冻结 encoder + 冻结 LLM，只训练 projector。
 
