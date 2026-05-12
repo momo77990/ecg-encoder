@@ -79,6 +79,8 @@ python -m src.evaluate_lm --config config_lm.yaml
 
 ## Model architecture
 
+![ECG Encoder model architecture](assests/model.png)
+
 The Phase 1 classifier uses:
 
 - 1D CNN feature extractor with 3 stride-2 convolution blocks
