@@ -36,8 +36,7 @@ def parse_args() -> argparse.Namespace:
     p.add_argument("--config", type=str, default="config.yaml")
     p.add_argument(
         "--smoke",
-        action="store_true",
-        help="快速跑通模式：1 epoch + 64 batch",
+        action="store_true"
     )
     return p.parse_args()
 
