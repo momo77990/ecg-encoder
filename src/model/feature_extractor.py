@@ -1,4 +1,4 @@
-"""1D CNN 特征提取器（wav2vec 2.0 / ECG-FM 风格）。
+"""1D CNN 特征提取器。
 
 每个 block: Conv1d(k, stride=2) → LayerNorm(channel-last) → GELU
 默认 3 个 block，总计 8x 时间维降采样。
