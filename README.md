@@ -105,6 +105,3 @@ Prefix prompt + ECG soft tokens + Suffix prompt + Target diagnosis text
 
 During training, the target diagnosis text is appended after the prompt. The loss is calculated only on the target diagnosis tokens, so the model learns to generate the diagnosis from the ECG information rather than learning to reproduce the prompt itself.
 
-## Notes
-
-Generated files, local data, training outputs, and helper shell scripts are excluded from Git by `.gitignore`.
