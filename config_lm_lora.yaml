@@ -31,7 +31,7 @@ data:
   eval_max_samples: 2000
 
 train:
-  epochs: 3                         # 从 best_projector 起步，LoRA 只需少量 epoch
+  epochs: 3                         # 从 best_projector 起步，LoRA 
   projector_lr: 1.0e-4               # projector 已训好，微调小 LR
   lora_lr: 2.0e-4                    # LoRA 正常 LR
   weight_decay: 0.0
