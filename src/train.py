@@ -2,7 +2,6 @@
 
 用法:
     python -m src.train --config config.yaml
-    python -m src.train --config config.yaml --smoke   # 快速跑通验证
 """
 from __future__ import annotations
 
